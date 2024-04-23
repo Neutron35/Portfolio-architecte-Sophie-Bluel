@@ -20,49 +20,54 @@ function generateWorks(works) {
         divGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
         workElement.appendChild(nameElement);
-    }
-   generateCategoriesmenu();
-}
+    };
+};
 
 function generateCategoriesmenu() {
     const portfolio = document.querySelector("#portfolio");
-    //const categoriesMenu = document.createElement("div");
     
     categoriesMenu.setAttribute("id", "categories-menu");
     portfolio.insertBefore(categoriesMenu, divGallery);
 
     const categoryAll = document.createElement("button");
     categoryAll.textContent = "Tous";
-    //categoryAll.setAttribute("id", "all");
+    categoryAll.classList.add("category-button", "active");
     categoriesMenu.appendChild(categoryAll);
     
     categories.forEach((category) => {
         const categoryButton = document.createElement("button");
         categoryButton.textContent = category;
-        //const categoryIdName = category.replaceAll(' ', '-').toLowerCase();
-        //categoryButton.setAttribute("id", categoryIdName);
+        categoryButton.classList.add("category-button");
         categoriesMenu.appendChild(categoryButton);
     });
-}
+};
 
 generateWorks(works);
+generateCategoriesmenu();
 
-categoriesMenu.addEventListener("click", (event) => {
+const categoriesButtons = document.querySelectorAll(".category-button");
+
+document.addEventListener("click", (event) => {
     const isButton = event.target.nodeName === "BUTTON";
     if (!isButton) {
         return
-    }
+    };
+
+    if (event.target.classList.contains("category-button")) {
+        categoriesButtons.forEach(function(button) {
+            button.classList.remove("active");
+        });
+        event.target.classList.add("active");
+    };
 
     if (!(event.target.textContent === "Tous")) {
         const sortedWorks = works.filter(function (work) {
             return work.category.name === event.target.textContent;
-        })
-        categoriesMenu.innerHTML = "";
+        });
         divGallery.innerHTML = "";
         generateWorks(sortedWorks);
     } else {
-        categoriesMenu.innerHTML = "";
         divGallery.innerHTML = "";
         generateWorks(works);
-    }
-})
+    };
+});
