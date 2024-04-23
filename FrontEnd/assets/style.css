@@ -266,12 +266,37 @@ footer nav ul {
 /* || Mes modifications || */
 
 /*** index.html ***/
+/* Couleur fond */
+html {
+	background-color: #fffef8;
+}
+
+body {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
 /* Liens nav top */
-a,
-a:focus,
-a:active {
+header nav a,
+header nav a:focus,
+header nav a:active {
 	color: inherit;
 	text-decoration: none;
+}
+
+header nav a.active {
+	font-weight: bold;
+}
+
+header nav ul {
+	gap: 15px;
+}
+
+/* Icône Instagram */
+header nav img {
+	width: 20px;
+	height: 20px;
 }
 
 /* Menu des catégories */
@@ -315,8 +340,46 @@ button {
 	padding-top: 5px;
 }
 
+/* Footer */
+footer {
+	margin-top: auto;
+	background-color: #ffffff;
+}
+
 /*** login.html ***/
-form h2 {
+.login {
+	width: 380px;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+}
+
+.login h2 {
 	text-align: center;
+	margin-top: 100px;
 	margin-bottom: 1em;
+}
+
+.login label {
+	margin-bottom: 8px;
+}
+
+#email,
+#password {
+	height: 50px;
+	border: 0px;
+	background-color: white;
+	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
+}
+
+#email {
+	margin-bottom: 20px;
+}
+
+#connect {
+	height: 36px;
+}
+
+.login a {
+	text-align: center;
 }
