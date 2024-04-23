@@ -1,3 +1,5 @@
+import { mainNavStyle } from "./mainNav.js";
+
 const reponse = await fetch("http://localhost:5678/api/works");
 const works = await reponse.json();
 
@@ -42,10 +44,12 @@ function generateCategoriesmenu() {
         categoriesMenu.appendChild(categoryButton);
     });
 };
+mainNavStyle();
 
 generateWorks(works);
 generateCategoriesmenu();
 
+// Changement couleur quand clic sur catégorie
 const categoriesButtons = document.querySelectorAll(".category-button");
 
 document.addEventListener("click", (event) => {
