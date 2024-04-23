@@ -310,6 +310,11 @@ button {
 	background-color: #1d6154;
 }
 
+/* Projets */
+.gallery figcaption {
+	padding-top: 5px;
+}
+
 /*** login.html ***/
 form h2 {
 	text-align: center;

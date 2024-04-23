@@ -16,6 +16,7 @@ function generateWorks(works) {
         imageElement.src = work.imageUrl;
         imageElement.alt = work.title;
         const nameElement = document.createElement("figcaption");
+        nameElement.textContent = work.title;
 
         divGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
