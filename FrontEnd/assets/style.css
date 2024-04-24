@@ -380,6 +380,12 @@ footer {
 	height: 36px;
 }
 
+.login p {
+	color: red;
+	text-align: center;
+	margin-top: 20px;
+}
+
 .login a {
 	text-align: center;
 }

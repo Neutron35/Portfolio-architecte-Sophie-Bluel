@@ -44,8 +44,8 @@ function generateCategoriesmenu() {
         categoriesMenu.appendChild(categoryButton);
     });
 };
-mainNavStyle();
 
+mainNavStyle();
 generateWorks(works);
 generateCategoriesmenu();
 
