@@ -1,9 +1,15 @@
+import { apiURL } from "./env.js";
 import { mainNavStyle } from "./mainNav.js";
 
 const loginErrorMessage = "Erreur dans l'identifiant ou le mot de passe";
 
 function sendLoginForm() {
     const loginForm = document.querySelector(".login");
+
+    //Pour test
+    loginForm.querySelector("[name=email]").value = "sophie.bluel@test.tld";
+    //Fin test
+
     loginForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
@@ -11,14 +17,16 @@ function sendLoginForm() {
             email: event.target.querySelector("[name=email]").value,
             password: event.target.querySelector("[name=password]").value,
         };
-        const payload = JSON.stringify(loginData);
-        const postReponse = await fetch("http://localhost:5678/api/users/login", {
+        const body = JSON.stringify(loginData);
+        const postResponse = await fetch(`${apiURL}users/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: payload
+            body
         });
-        if (postReponse.status === 200) {
-            window.location.href="index.html";
+        if (postResponse.status === 200) {
+            const response = await postResponse.json();
+            window.localStorage.setItem("token", response.token);
+            window.location.href = "index.html";
         } else {
             if (!(document.querySelector(".error-message"))) {
                 const form = document.querySelector(".login");
@@ -30,10 +38,10 @@ function sendLoginForm() {
             } else {
                 document.querySelector(".error-message").textContent = "";
                 document.querySelector(".error-message").textContent = loginErrorMessage;
-            }
-        }
+            };
+        };
     });
-}
+};
 
 mainNavStyle();
 sendLoginForm();
