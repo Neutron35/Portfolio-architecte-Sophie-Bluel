@@ -272,9 +272,41 @@ html {
 }
 
 body {
-	height: 100vh;
+	min-height: 100vh;
+	max-width: none;
+	margin: 0;
 	display: flex;
 	flex-direction: column;
+}
+
+header,
+main,
+footer {
+	width: 100%;
+	max-width: 1140px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Bannière Mode édition */
+#edit-mode-banner {
+	width: 100%;
+	height: 50px;
+	margin: 0;
+	position: fixed;
+	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+#edit-mode-banner .fa-edit {
+	color: white;
+}
+
+#edit-mode-banner p {
+	color: white;
 }
 
 /* Liens nav top */
@@ -297,6 +329,27 @@ header nav ul {
 header nav img {
 	width: 20px;
 	height: 20px;
+}
+
+/* Test "modifier" à côté de "Mes projets" */
+#title-and-edit {
+	display: flex;
+	align-items: center;
+}
+
+#title-and-edit h2 {
+	width: fit-content;
+	margin-left: calc(50% - 96px);
+}
+
+#edit-mode {
+	color: inherit;
+	text-decoration: none;
+	margin-left: 30px;
+}
+
+#edit-mode i {
+	padding-right: 10px;
 }
 
 /* Menu des catégories */
@@ -333,6 +386,93 @@ button {
 .category-button.active {
 	color: #ffffff;
 	background-color: #1d6154;
+}
+
+/* Fenêtre modale */
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 570px;
+	height: 630px;
+	margin: auto auto;
+	background-color: #ffffff;
+	border-radius: 10px;
+	padding: 30px;
+	gap: 10px;
+}
+
+.js-modal-close {
+	width: fit-content;
+	font-size: 24px;
+	align-self: flex-end;
+}
+
+.modal-wrapper h3 {
+	text-align: center;
+	font-size: 25px;
+}
+
+.modal-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 35px;
+	column-gap: 10px;
+	row-gap: 30px;
+	width: 72%;
+	border-bottom: 1px solid #b3b3b3;
+}
+
+.modal-gallery figure:last-child {
+	margin-bottom: 65px;
+}
+
+.modal-gallery figure {
+	width: 18%;
+	position: relative;
+}
+
+.modal-gallery img {
+	width: 100%;
+	display: block;
+}
+
+.delete-work {
+	position: absolute;
+	top: 6px;
+	right: 5px;
+	text-align: center;
+	background-color: #000000;
+	border-radius: 2px;
+}
+
+.fa-trash-can {
+	margin: 3px 4px;
+	font-size: 11px;
+	color: #ffffff;
+}
+
+.add-picture {
+	width: 41%;
+	height: 36px;
+	font-size: 14px;
+	text-align: center;
+	color: #ffffff;
+	background-color: #1d6154;
+	border-radius: 60px;
+	margin: auto 0;
 }
 
 /* Projets */
