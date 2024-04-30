@@ -8,6 +8,7 @@ const categories = new Set();
 const divGallery = document.querySelector(".gallery");
 const categoriesMenu = document.createElement("div");
 const portfolio = document.querySelector("#portfolio");
+const contact = document.querySelector("#contact");
 
 const navLogin = document.querySelector("#login");
 
@@ -107,6 +108,7 @@ function createEditMode() {
     editMode.appendChild(editModeMessage);
 };
 
+// On ajoute les photos dans la modale
 function populateModalGallery(works, container) {
     works.forEach((work) => {
         const workElement = document.createElement("figure");
@@ -124,33 +126,65 @@ function populateModalGallery(works, container) {
     });
 };
 
-// Ouverture modale
-const openModal = function (e) {
+// Création modale
+const createModal = function (e) {
     e.preventDefault();
+
+    const modalAside = document.createElement("aside");
+    modalAside.setAttribute("id", "modal1");
+    modalAside.classList.add("modal");
+    modalAside.setAttribute("role", "dialog");
+    modalAside.setAttribute("aria-labelledby", "modal-title")
+    const main = document.querySelector("main");
+    main.insertBefore(modalAside, contact);
+
+    const modalWrapper = document.createElement("div");
+    modalWrapper.classList.add("modal-wrapper", "js-modal-stop");
+    modalAside.appendChild(modalWrapper);
+
+    const closeModalButton = document.createElement("button");
+    closeModalButton.classList.add("js-modal-close");
+    modalWrapper.appendChild(closeModalButton);
+
+    const closeModalX = document.createElement("span");
+    closeModalX.setAttribute("aria-hidden", "true");
+    closeModalX.innerText = "\u00D7";
+    closeModalButton.appendChild(closeModalX);
+
+    const modalTitle = document.createElement("h3");
+    modalTitle.setAttribute("id", "modal-title");
+    modalTitle.innerText = "Galerie photo";
+    modalWrapper.appendChild(modalTitle);
+
+    const modalGallery = document.createElement("div");
+    modalGallery.classList.add("modal-gallery");
+    modalWrapper.appendChild(modalGallery);
+
+    const addPictureButton = document.createElement("button");
+    addPictureButton.classList.add("add-picture");
+    addPictureButton.innerText = "Ajouter une photo";
+    modalWrapper.appendChild(addPictureButton);
+
     modal = document.querySelector(e.target.parentNode.getAttribute("href"));
+    openModal(modalGallery);
+}
+
+// Ouverture modale
+function openModal (container) {
+    populateModalGallery(works, container);
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
-    modal.style.display = null;
-    modal.removeAttribute("aria-hidden");
-    modal.setAttribute("aria-modal", "true");
+    console.log(focusables);
     modal.addEventListener("click", closeModal);
     modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
-    modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+    modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation)
+}
 
-    populateModalGallery(works, modalGallery);
-};
-
+// Fermeture modale
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault();
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-    modal.removeAttribute("aria-modal");
-    modal.removeEventListener("click", closeModal);
-    modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
-    modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
+    modal.remove();
     modal = null;
-
-    modalGallery.innerHTML = "";
 }
 
 const stopPropagation = function (e) {
@@ -169,7 +203,6 @@ function loggedInCheck() {
         navLogin.setAttribute("href", "index.html");
         createTopBanner();
         createEditMode();
-        //openModal();
         document.querySelector("#categories-menu").style.display = "none";
         logout();
     };
@@ -216,7 +249,7 @@ const focusInModal = function (e) {
 // Apparition modale selon le clic
 const modalLinks = document.querySelectorAll(".js-modal");
 modalLinks.forEach(a => {
-    a.addEventListener("click", openModal);
+    a.addEventListener("click", createModal);
 });
 
 // Fermer modale si on appuie sur Echap
