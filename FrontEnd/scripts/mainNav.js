@@ -1,6 +1,6 @@
 export function mainNavStyle() {
-    let path = window.location.pathname;
-    let page = path.split("/").pop();
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
 
     const mainNavTabs = document.querySelectorAll("header nav li a");
 
