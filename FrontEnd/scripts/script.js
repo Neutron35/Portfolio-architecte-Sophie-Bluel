@@ -12,8 +12,6 @@ const contact = document.querySelector("#contact");
 
 const navLogin = document.querySelector("#login");
 
-const modalGallery = document.querySelector(".modal-gallery");
-
 let modal = null;
 const focusableSelector = "button, a, input, textarea";
 let focusables = [];
