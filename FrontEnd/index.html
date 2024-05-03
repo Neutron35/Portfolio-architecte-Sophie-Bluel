@@ -42,6 +42,45 @@
 				<h2>Mes Projets</h2>
 				<div class="gallery"></div>
 			</section>
+			<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" style="display: none">
+				<div class="modal-wrapper js-modal-stop">
+					<div id="modal-gallery-view" style="display: none">
+						<div class="modal-navigation">
+							<button class="modal-close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<h3 id="modal-title">Galerie photo</h3>
+						<div class="modal-gallery"></div>
+						<button class="add-picture">Ajouter une photo</button>
+					</div>
+					<div id="modal-upload-view" style="display: none">
+						<div class="modal-navigation">
+							<button class="modal-arrow">
+								<i class="fa-solid fa-arrow-left"></i>
+							</button>
+							<button class="modal-close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<h3 id="modal-title">Ajout photo</h3>
+						<form class="add-picture-form">
+							<div class="picture-upload-block">
+								<img id="file-preview" style="display: none" />
+								<i class="fa-regular fa-image"></i>
+								<input id="upload-picture" type="file" name="upload-picture" accept=".jpg, .png" required />
+								<label id="upload-label" for="upload-picture">+ Ajouter photo</label>
+								<p id="upload-message">jpg, png : 4mo max</p>
+							</div>
+							<label id="picture-title-label" for="picture-title">Titre</label>
+							<input id="picture-title" type="text" name="picture-title" required />
+							<label id="picture-category-label" for="picture-category">Catégorie</label>
+							<select id="picture-category" type="text" name="picture-category" required></select>
+						</form>
+						<button class="confirm-upload" disabled>Valider</button>
+					</div>
+				</div>
+			</aside>
 			<section id="contact">
 				<h2>Contact</h2>
 				<p>Vous avez un projet ? Discutons-en !</p>
