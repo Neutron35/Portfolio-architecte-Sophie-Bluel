@@ -7,26 +7,31 @@ const categories = new Set();
 
 const body = document.querySelector("body");
 const header = document.querySelector("header");
-const navLogin = document.querySelector("#login");
+const navLogin = document.getElementById("login");
 const projectsTitle = document.querySelector("#portfolio h2");
 const divGallery = document.querySelector(".gallery");
-const portfolio = document.querySelector("#portfolio");
-const modalGalleryView = document.querySelector("#modal-gallery-view");
-const modalUploadView = document.querySelector("#modal-upload-view");
+const portfolio = document.getElementById("portfolio");
+
+const modalGalleryView = document.getElementById("modal-gallery-view");
 const modalGallery = document.querySelector(".modal-gallery");
 const addPictureButton = document.querySelector(".add-picture");
+
+const modalUploadView = document.getElementById("modal-upload-view");
 const modalPreviousButton = document.querySelector(".fa-arrow-left");
-const uploadPictureButton = document.querySelector("#upload-picture");
+const addPictureForm = document.querySelector(".add-picture-form");
 const uploadBlock = document.querySelector(".picture-upload-block");
-const uploadMessage = document.querySelector("#upload-message");
+const uploadPictureButton = document.getElementById("upload-picture");
+const uploadMessage = document.getElementById("upload-message");
 const uploadPreview = document.getElementById("file-preview");
+const uploadPictureTitle = document.getElementById("picture-title");
+const uploadPictureCategory = document.getElementById("picture-category");
 const confirmUploadButton = document.querySelector(".confirm-upload");
+
+const isAuth = window.localStorage.getItem("token");
 
 const categoriesMenu = document.createElement("div");
 
 let modal = null;
-const focusableSelector = "button, a, input, textarea";
-let focusables = [];
 
 // Génération de l'affichage des projets
 function generateWorks(works) {
@@ -63,7 +68,15 @@ function generateCategoriesMenu() {
         categoryButton.textContent = category;
         categoryButton.classList.add("category-button");
         categoriesMenu.appendChild(categoryButton);
+
+        //On ajoute également les catégories dans le formulaire d'ajout de photo
+        const categoryOption = document.createElement("option");
+        categoryOption.value = category;
+        categoryOption.innerText = category;
+        //category.setAttribute("id", category.id)
+        uploadPictureCategory.appendChild(categoryOption);
     });
+    console.log(categories);
 };
 
 // Création de la bannière "Mode édition" en haut
@@ -171,46 +184,41 @@ function openModalGalleryView() {
     const deletePictureButtons = document.querySelectorAll(".delete-work");
     deletePictureButtons.forEach(button => {
         button.addEventListener("click", async function () {
-            const token = window.localStorage.getItem("token");
             const closestFigure = button.closest("figure");
             const figureClass = closestFigure.className;
             const workId = figureClass.replace(/[^0-9]/g, "");
             const deleteResponse = await fetch(`${apiURL}works/${workId}`, { 
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${isAuth}`
                 }
             });
-            const matchingIdElements = document.querySelectorAll(figureClass);
-            matchingIdElements.forEach(element => {
-                element.remove;
-            })
+            switch (deleteResponse.status) {
+                case 200:
+                    alert("Suppression effectuée");
+                    break;
+                case 401:
+                    alert("Opération non autorisée");
+                    break;
+                case 500:
+                    alert("Erreur inconnue");
+                    break;
+            }
+            /*
+            if (deleteResponse.status === 200) {
+                const matchingIdElements = document.querySelectorAll(figureClass);
+                matchingIdElements.forEach(element => {
+                    element.remove;
+                })
+            } else if (deleteResponse.status === 401) {
+                alert("Vous n'êtes pas connecté.e");
+            } else {
+                alert("Erreur inconnue");
+            }
+            */
         })
     })
-    /*
-    deletePictureButtons.forEach(button => {
-        button.addEventListener("click", async function () {
-            let closestFigure = button.closest("figure");
-            let figureClassName = closestFigure.className;
-            let workId = figureClassName.replace(/[^0-9]/g,"");
-            const deleteResponse = await fetch(`${apiURL}works/`${workId}, { method: "DELETE" });
-            const matchingIdElements = document.querySelectorAll(figureClassName);
-            matchingIdElements.forEach(element => {
-                element.remove();
-            })
-        })
-    })
-    */
 }
-
-/*
-function deleteWork(id) {
-    const response = await fetch(`${apiURL}works/`${id}, {
-        method: "DELETE",
-    });
-
-}
-*/
 
 // Affichage Ajout photo modale
 const openModalUploadView = function (e) {
@@ -219,6 +227,24 @@ const openModalUploadView = function (e) {
     modalUploadView.style.display = "flex";
     modalPreviousButton.addEventListener("click", switchBackModalView);
     uploadPictureButton.addEventListener("change", checkFile);
+    addPictureForm.addEventListener("submit", sendNewWork);
+}
+
+async function sendNewWork (event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", uploadPictureButton.files[0]);
+    formData.append("title", uploadPictureTitle.value);
+    formData.append("category", "2");
+    const response = await fetch(`${apiURL}works`, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Authorization": `Bearer ${isAuth}`
+        }
+    });
+    let result = await response.json();
 }
 
 // On retourne à l'affichage galerie photo modale
@@ -237,6 +263,8 @@ function resetModalUploadView() {
     uploadPictureButton.style.display = "none";
     uploadPreview.src = "";
     uploadPreview.style.display = "none";
+    addPictureForm.reset();
+    confirmUploadButton.disabled = "true";
 }
 
 // Vérification du format et du poids de l'image puis affichage preview
@@ -271,7 +299,7 @@ function checkFile() {
 
 // On vérifie si l'utilisateur est connecté
 function loggedInCheck() {
-    const isAuth = window.localStorage.getItem("token");
+    //const isAuth = window.localStorage.getItem("token");
     if (isAuth === null) {
         return
     } else {
@@ -310,9 +338,11 @@ categoriesButtons.forEach(button => {
     })
 })
 
+/*
 const focusInModal = function (e) {
     e.preventDefault();
 }
+*/
 
 // Apparition modale selon le clic
 const modalLinks = document.querySelectorAll(".js-modal");
@@ -331,7 +361,18 @@ window.addEventListener("keydown", function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e);
     };
+    /*
     if (e.key === "Tab" && modal !== null) {
         focusInModal(e);
+    }
+    */
+});
+
+// On active/désactive le bouton d'ajout de photo en fonction du formulaire
+addPictureForm.addEventListener("change", function() {
+    if (uploadPictureButton.value != "") {
+        confirmUploadButton.disabled = false;
+    } else {
+        confirmUploadButton.disabled = true;
     }
 });
