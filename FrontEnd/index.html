@@ -65,19 +65,21 @@
 						</div>
 						<h3 id="modal-title">Ajout photo</h3>
 						<form class="add-picture-form">
-							<div class="picture-upload-block">
-								<img id="file-preview" style="display: none" />
-								<i class="fa-regular fa-image"></i>
-								<input id="upload-picture" type="file" name="upload-picture" accept=".jpg, .png" required />
-								<label id="upload-label" for="upload-picture">+ Ajouter photo</label>
-								<p id="upload-message">jpg, png : 4mo max</p>
+							<div id="border-container">
+								<div class="picture-upload-block">
+									<img id="file-preview" style="display: none" />
+									<i class="fa-regular fa-image"></i>
+									<input id="upload-picture" type="file" name="upload-picture" accept=".jpg, .png" required />
+									<label id="upload-label" for="upload-picture">+ Ajouter photo</label>
+									<p id="upload-message">jpg, png : 4mo max</p>
+								</div>
+								<label id="picture-title-label" for="picture-title">Titre</label>
+								<input id="picture-title" type="text" name="picture-title" required />
+								<label id="picture-category-label" for="picture-category">Catégorie</label>
+								<select id="picture-category" type="text" name="picture-category" required></select>
 							</div>
-							<label id="picture-title-label" for="picture-title">Titre</label>
-							<input id="picture-title" type="text" name="picture-title" required />
-							<label id="picture-category-label" for="picture-category">Catégorie</label>
-							<select id="picture-category" type="text" name="picture-category" required></select>
+							<button type="submit" class="confirm-upload" disabled>Valider</button>
 						</form>
-						<button class="confirm-upload" disabled>Valider</button>
 					</div>
 				</div>
 			</aside>
