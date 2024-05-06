@@ -486,10 +486,14 @@ button {
 
 /* Ajout photo modale */
 .add-picture-form {
+	width: 73%;
+	margin-top: 35px;
+}
+
+#border-container {
 	display: flex;
 	flex-direction: column;
-	width: 72%;
-	margin-top: 15px;
+
 	margin-bottom: 30px;
 	padding-bottom: 50px;
 	border-bottom: 1px solid #b3b3b3;
@@ -542,6 +546,7 @@ button {
 #picture-title {
 	height: 50px;
 	border: 0px;
+	padding: 0 15px 0 15px;
 	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
 }
 
@@ -553,11 +558,13 @@ button {
 #picture-category {
 	height: 50px;
 	border: 0px;
+	padding: 0 15px 0 15px;
 	background-color: #ffffff;
 	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
 }
 
 .confirm-upload {
+	display: block;
 	width: 41%;
 	height: 36px;
 	font-size: 14px;
@@ -566,6 +573,10 @@ button {
 	background-color: #a7a7a7;
 	border-radius: 60px;
 	margin: 0 auto 20px auto;
+}
+
+.confirm-upload:enabled {
+	background-color: #1d6154;
 }
 
 /* Projets */
