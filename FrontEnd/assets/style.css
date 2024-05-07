@@ -485,7 +485,7 @@ button {
 }
 
 /* Ajout photo modale */
-.add-picture-form {
+.add-work-form {
 	width: 73%;
 	margin-top: 35px;
 }
@@ -538,24 +538,24 @@ button {
 	text-align: center;
 }
 
-#picture-title-label {
+#work-title-label {
 	margin-top: 30px;
 	margin-bottom: 10px;
 }
 
-#picture-title {
+#work-title {
 	height: 50px;
 	border: 0px;
 	padding: 0 15px 0 15px;
 	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
 }
 
-#picture-category-label {
+#work-category-label {
 	margin-top: 20px;
 	margin-bottom: 10px;
 }
 
-#picture-category {
+#work-category {
 	height: 50px;
 	border: 0px;
 	padding: 0 15px 0 15px;
