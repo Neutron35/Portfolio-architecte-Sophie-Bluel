@@ -3,7 +3,9 @@ import { mainNavStyle } from "./mainNav.js";
 
 const response = await fetch(`${apiURL}works`);
 const works = await response.json();
-const categories = new Set();
+
+const extractedCategories = [];
+let categories;
 
 const body = document.querySelector("body");
 const header = document.querySelector("header");
@@ -18,13 +20,13 @@ const addPictureButton = document.querySelector(".add-picture");
 
 const modalUploadView = document.getElementById("modal-upload-view");
 const modalPreviousButton = document.querySelector(".fa-arrow-left");
-const addPictureForm = document.querySelector(".add-picture-form");
+const addWorkForm = document.querySelector(".add-work-form");
 const uploadBlock = document.querySelector(".picture-upload-block");
 const uploadPictureButton = document.getElementById("upload-picture");
 const uploadMessage = document.getElementById("upload-message");
 const uploadPreview = document.getElementById("file-preview");
-const uploadPictureTitle = document.getElementById("picture-title");
-const uploadPictureCategory = document.getElementById("picture-category");
+const uploadWorkTitle = document.getElementById("work-title");
+const uploadWorkCategory = document.getElementById("work-category");
 const confirmUploadButton = document.querySelector(".confirm-upload");
 
 const isAuth = window.localStorage.getItem("token");
@@ -33,10 +35,15 @@ const categoriesMenu = document.createElement("div");
 
 let modal = null;
 
+mainNavStyle();
+generateWorks(works);
+generateCategoriesMenu();
+loggedInCheck();
+
 // Génération de l'affichage des projets
 function generateWorks(works) {
     works.forEach((work) => {
-        categories.add(work.category.name);
+        extractedCategories.push(work.category);
 
         const workElement = document.createElement("figure");
         workElement.classList.add(`work${work.id}`);
@@ -50,6 +57,8 @@ function generateWorks(works) {
         workElement.appendChild(imageElement);
         workElement.appendChild(nameElement);
     });
+    let setCategories = new Set(extractedCategories.map(JSON.stringify));
+    categories = Array.from(setCategories).map(JSON.parse);
 };
 
 // Génération du menu des catégories/filtres
@@ -65,18 +74,17 @@ function generateCategoriesMenu() {
     
     categories.forEach((category) => {
         const categoryButton = document.createElement("button");
-        categoryButton.textContent = category;
+        categoryButton.textContent = category.name;
         categoryButton.classList.add("category-button");
         categoriesMenu.appendChild(categoryButton);
 
         //On ajoute également les catégories dans le formulaire d'ajout de photo
         const categoryOption = document.createElement("option");
-        categoryOption.value = category;
-        categoryOption.innerText = category;
-        //category.setAttribute("id", category.id)
-        uploadPictureCategory.appendChild(categoryOption);
+        categoryOption.value = category.name;
+        categoryOption.innerText = category.name;
+        categoryOption.setAttribute("id", `category${category.id}`)
+        uploadWorkCategory.appendChild(categoryOption);
     });
-    console.log(categories);
 };
 
 // Création de la bannière "Mode édition" en haut
@@ -177,6 +185,7 @@ const stopPropagation = function (e) {
 
 // Affichage de la galerie photo modale
 function openModalGalleryView() {
+    resetModalUploadView();
     modalUploadView.style.display = "none";
     modalGalleryView.style.display = "flex";
     populateModalGallery(works);
@@ -227,7 +236,7 @@ const openModalUploadView = function (e) {
     modalUploadView.style.display = "flex";
     modalPreviousButton.addEventListener("click", switchBackModalView);
     uploadPictureButton.addEventListener("change", checkFile);
-    addPictureForm.addEventListener("submit", sendNewWork);
+    addWorkForm.addEventListener("submit", sendNewWork);
 }
 
 async function sendNewWork (event) {
@@ -235,8 +244,10 @@ async function sendNewWork (event) {
 
     const formData = new FormData();
     formData.append("image", uploadPictureButton.files[0]);
-    formData.append("title", uploadPictureTitle.value);
-    formData.append("category", "2");
+    formData.append("title", uploadWorkTitle.value);
+    const uploadCategoryId = uploadWorkCategory.options[uploadWorkCategory.selectedIndex].id;
+    const categoryId = uploadCategoryId.replace(/[^0-9]/g, "");
+    formData.append("category", categoryId);
     const response = await fetch(`${apiURL}works`, {
         method: "POST",
         body: formData,
@@ -256,14 +267,15 @@ const switchBackModalView = function (e) {
 
 function resetModalUploadView() {
     uploadMessage.style.color = "CanvasText";
-    uploadMessage.innerHTML = "jpg, png : 4mo max";for (const child of uploadBlock.children) {
+    uploadMessage.innerHTML = "jpg, png : 4mo max";
+    for (const child of uploadBlock.children) {
         child.style.display = "unset";
     }
     uploadPictureButton.value = "";
     uploadPictureButton.style.display = "none";
     uploadPreview.src = "";
     uploadPreview.style.display = "none";
-    addPictureForm.reset();
+    addWorkForm.reset();
     confirmUploadButton.disabled = "true";
 }
 
@@ -311,11 +323,6 @@ function loggedInCheck() {
         logout();
     };
 };
-
-mainNavStyle();
-generateWorks(works);
-generateCategoriesMenu();
-loggedInCheck();
 
 // Changement couleur quand clic sur catégorie
 const categoriesButtons = document.querySelectorAll(".category-button");
@@ -369,7 +376,7 @@ window.addEventListener("keydown", function (e) {
 });
 
 // On active/désactive le bouton d'ajout de photo en fonction du formulaire
-addPictureForm.addEventListener("change", function() {
+addWorkForm.addEventListener("change", function() {
     if (uploadPictureButton.value != "") {
         confirmUploadButton.disabled = false;
     } else {
