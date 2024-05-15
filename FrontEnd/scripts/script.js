@@ -4,8 +4,9 @@ import { mainNavStyle } from "./mainNav.js";
 const response = await fetch(`${apiURL}works`);
 const works = await response.json();
 
-const extractedCategories = [];
-let categories;
+const categoriesData = [];
+const categories = new Set();
+let uniqueCategories;
 
 const body = document.querySelector("body");
 const header = document.querySelector("header");
@@ -46,12 +47,15 @@ function generateWorksGallery(works) {
     works.forEach((work) => {
         createWorkInGallery(work.category, work.id, work.imageUrl, work.title);
     });
-    let setCategories = new Set(extractedCategories.map(JSON.stringify));
-    categories = Array.from(setCategories).map(JSON.parse);
+    uniqueCategories = categoriesData.filter(item => {
+        const duplicate = categories.has(item.id);
+        categories.add(item.id);
+        return !duplicate;
+    })
 };
 
 function createWorkInGallery(category, id, imageUrl, title) {
-    extractedCategories.push(category);
+    categoriesData.push(category);
 
     const workElement = document.createElement("figure");
     workElement.setAttribute("data-id", id)
@@ -78,7 +82,7 @@ function generateCategoriesMenu() {
     categoryAll.classList.add("category-button", "active");
     categoriesMenu.appendChild(categoryAll);
     
-    categories.forEach((category) => {
+    uniqueCategories.forEach((category) => {
         const categoryButton = document.createElement("button");
         categoryButton.textContent = category.name;
         categoryButton.classList.add("category-button");
@@ -247,7 +251,6 @@ async function sendNewWork (event) {
         }
     });
     let result = await response.json();
-    console.log(result);
     createWorkInGallery(selectedCategory, result.id, result.imageUrl, result.title);
     createWorkInModalGallery(result.id, result.imageUrl, result.title);
 }
