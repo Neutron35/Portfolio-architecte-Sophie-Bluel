@@ -376,12 +376,17 @@ window.addEventListener("keydown", function (e) {
 // On active/désactive le bouton d'ajout de photo en fonction du formulaire
 addWorkForm.addEventListener("change", function() {
     if (uploadPictureButton.value != "" && uploadWorkTitle.value != "") {
+        uploadBlock.style.border = "0";
+        uploadWorkTitle.style.border = "0";
         confirmUploadButton.disabled = false;
     } else {
-        if (uploadPictureButton.value === "") {
+        if (uploadPictureButton.value === "" && uploadWorkTitle.value === "") {
+            uploadBlock.style.border = "1px solid red";
+            uploadWorkTitle.style.border = "1px solid red";
+        } else if (uploadPictureButton.value === "" && uploadWorkTitle.value != "") {
             uploadWorkTitle.style.border = "0";
             uploadBlock.style.border = "1px solid red";
-        } else if (uploadWorkTitle.value === "") {
+        } else if (uploadPictureButton.value != "" && uploadWorkTitle.value === "") {
             uploadBlock.style.border = "0";
             uploadWorkTitle.style.border = "1px solid red";
         }
