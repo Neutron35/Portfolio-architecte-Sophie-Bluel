@@ -18,14 +18,14 @@ function sendLoginForm() {
             password: event.target.querySelector("[name=password]").value,
         };
         const body = JSON.stringify(loginData);
-        const postResponse = await fetch(`${apiURL}users/login`, {
+        const response = await fetch(`${apiURL}users/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body
         });
-        if (postResponse.status === 200) {
-            const response = await postResponse.json();
-            window.localStorage.setItem("token", response.token);
+        if (response.status === 200) {
+            const result = await response.json();
+            window.localStorage.setItem("token", result.token);
             window.location.href = "index.html";
         } else {
             if (!(document.querySelector(".error-message"))) {

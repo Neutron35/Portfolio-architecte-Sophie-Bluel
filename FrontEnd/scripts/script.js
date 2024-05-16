@@ -105,7 +105,7 @@ function createTopBanner() {
     header.style.marginTop = "100px";
 
     const editModeIcon = document.createElement("i");
-    editModeIcon.classList.add("fas", "fa-edit");
+    editModeIcon.classList.add("fa-regular", "fa-pen-to-square");
     editModeBanner.appendChild(editModeIcon);
 
     const editModeWarning = document.createElement("p");
@@ -136,7 +136,7 @@ function createEditMode() {
     titleAndEdit.appendChild(editMode);
 
     const editModeIcon = document.createElement("i");
-    editModeIcon.classList.add("fas", "fa-edit");
+    editModeIcon.classList.add("fa-regular", "fa-pen-to-square");
     editMode.appendChild(editModeIcon);
 
     const editModeMessage = document.createElement("span");
@@ -207,18 +207,21 @@ function openModalGalleryView() {
         button.addEventListener("click", async function () {
             const closestFigure = button.closest("figure");
             const workId = closestFigure.getAttribute("data-id");
-            const deleteResponse = await fetch(`${apiURL}works/${workId}`, { 
+            const response = await fetch(`${apiURL}works/${workId}`, { 
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${isAuth}`
                 }
             });
-            switch (deleteResponse.status) {
+            switch (response.status) {
                 case 204:
                     const matchingElements = document.querySelectorAll(`figure[data-id="${workId}"]`);
                     matchingElements.forEach(element => {
                         element.remove();
                     })
+                    break;
+                default:
+                    alert("Une erreur est survenue");
             }
         })
     })
@@ -250,9 +253,17 @@ async function sendNewWork (event) {
             "Authorization": `Bearer ${isAuth}`
         }
     });
-    let result = await response.json();
-    createWorkInGallery(selectedCategory, result.id, result.imageUrl, result.title);
-    createWorkInModalGallery(result.id, result.imageUrl, result.title);
+    const result = await response.json();
+    switch (response.status) {
+        case 201:
+            createWorkInGallery(selectedCategory, result.id, result.imageUrl, result.title);
+            createWorkInModalGallery(result.id, result.imageUrl, result.title);
+            resetModalUploadView();
+            openModalGalleryView();
+            break;
+        default:
+            alert("Une erreur est survenue");
+    };
 }
 
 // On retourne à l'affichage galerie photo modale
@@ -264,7 +275,7 @@ const switchBackModalView = function (e) {
 
 function resetModalUploadView() {
     uploadBlock.style.border = "0";
-    uploadMessage.style.color = "CanvasText";
+    uploadMessage.style.color = "#444444";
     uploadMessage.innerHTML = "jpg, png : 4mo max";
     for (const child of uploadBlock.children) {
         child.style.display = "unset";
