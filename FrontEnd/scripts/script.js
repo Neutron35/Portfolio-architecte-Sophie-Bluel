@@ -280,7 +280,6 @@ function resetModalUploadView() {
     for (const child of uploadBlock.children) {
         child.style.display = "unset";
     }
-    uploadPictureButton.value = "";
     uploadPictureButton.style.display = "none";
     uploadPreview.src = "";
     uploadPreview.style.display = "none";
@@ -355,12 +354,6 @@ categoriesButtons.forEach(button => {
     })
 })
 
-/*
-const focusInModal = function (e) {
-    e.preventDefault();
-}
-*/
-
 // Apparition modale selon le clic
 const modalLinks = document.querySelectorAll(".js-modal");
 modalLinks.forEach(a => {
@@ -377,11 +370,6 @@ window.addEventListener("keydown", function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e);
     };
-    /*
-    if (e.key === "Tab" && modal !== null) {
-        focusInModal(e);
-    }
-    */
 });
 
 // On active/désactive le bouton d'ajout de photo en fonction du formulaire
