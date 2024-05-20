@@ -77,16 +77,10 @@ function generateCategoriesMenu() {
     categoriesMenu.setAttribute("id", "categories-menu");
     portfolio.insertBefore(categoriesMenu, divGallery);
 
-    const categoryAll = document.createElement("button");
-    categoryAll.textContent = "Tous";
-    categoryAll.classList.add("category-button", "active");
-    categoriesMenu.appendChild(categoryAll);
+    createCategoryButton("Tous", 1);
     
     uniqueCategories.forEach((category) => {
-        const categoryButton = document.createElement("button");
-        categoryButton.textContent = category.name;
-        categoryButton.classList.add("category-button");
-        categoriesMenu.appendChild(categoryButton);
+        createCategoryButton(category.name, 0);
 
         //On ajoute également les catégories dans le formulaire d'ajout de photo
         const categoryOption = document.createElement("option");
@@ -95,6 +89,17 @@ function generateCategoriesMenu() {
         uploadWorkCategory.appendChild(categoryOption);
     });
 };
+
+function createCategoryButton(label, isActive) {
+    const button = document.createElement("button");
+    button.textContent = label;
+    if (isActive) {
+        button.classList.add("category-button", "active");
+    } else {
+        button.classList.add("category-button");
+    }
+    categoriesMenu.appendChild(button);
+}
 
 // Création de la bannière "Mode édition" en haut
 function createTopBanner() {
@@ -204,27 +209,33 @@ function openModalGalleryView() {
     addPictureButton.addEventListener("click", openModalUploadView);
     const deletePictureButtons = document.querySelectorAll(".delete-work");
     deletePictureButtons.forEach(button => {
-        button.addEventListener("click", async function () {
+        button.addEventListener("click", function () {
             const closestFigure = button.closest("figure");
             const workId = closestFigure.getAttribute("data-id");
-            const response = await fetch(`${apiURL}works/${workId}`, { 
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${isAuth}`
-                }
-            });
-            switch (response.status) {
-                case 204:
-                    const matchingElements = document.querySelectorAll(`figure[data-id="${workId}"]`);
-                    matchingElements.forEach(element => {
-                        element.remove();
-                    })
-                    break;
-                default:
-                    alert("Une erreur est survenue");
-            }
+            deleteWork(workId)
         })
     })
+}
+
+async function deleteWork(id) {
+    try {
+        const response = await fetch(`${apiURL}works/${id}`, { 
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${isAuth}`
+            }
+        });
+        if (response.ok) {
+            const matchingElements = document.querySelectorAll(`figure[data-id="${id}"]`);
+            matchingElements.forEach(element => {
+                element.remove();
+            })
+        } else {
+            alert("Une erreur est survenue");
+        }
+    } catch {
+        alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
+    }
 }
 
 // Affichage Ajout photo modale
@@ -232,7 +243,6 @@ const openModalUploadView = function (e) {
     e.preventDefault();
     modalGalleryView.style.display = "none";
     modalUploadView.style.display = "flex";
-    modalPreviousButton.addEventListener("click", switchBackModalView);
     uploadPictureButton.addEventListener("change", checkFile);
     addWorkForm.addEventListener("submit", sendNewWork);
 }
@@ -246,31 +256,26 @@ async function sendNewWork (event) {
     const selectedCategory = uploadWorkCategory.options[uploadWorkCategory.selectedIndex];
     const selectedCategoryId = selectedCategory.value;
     formData.append("category", selectedCategoryId);
-    const response = await fetch(`${apiURL}works`, {
-        method: "POST",
-        body: formData,
-        headers: {
-            "Authorization": `Bearer ${isAuth}`
-        }
-    });
-    const result = await response.json();
-    switch (response.status) {
-        case 201:
+    try {
+        const response = await fetch(`${apiURL}works`, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Authorization": `Bearer ${isAuth}`
+            }
+        });
+        const result = await response.json();
+        if (response.ok) {
             createWorkInGallery(selectedCategory, result.id, result.imageUrl, result.title);
             createWorkInModalGallery(result.id, result.imageUrl, result.title);
             resetModalUploadView();
             openModalGalleryView();
-            break;
-        default:
+        } else {
             alert("Une erreur est survenue");
-    };
-}
-
-// On retourne à l'affichage galerie photo modale
-const switchBackModalView = function (e) {
-    e.preventDefault()
-    resetModalUploadView();
-    openModalGalleryView();
+        }
+    } catch {
+        alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
+    }
 }
 
 function resetModalUploadView() {
@@ -370,6 +375,13 @@ window.addEventListener("keydown", function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e);
     };
+});
+
+
+modalPreviousButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    resetModalUploadView();
+    openModalGalleryView();
 });
 
 // On active/désactive le bouton d'ajout de photo en fonction du formulaire

@@ -18,28 +18,32 @@ function initLoginForm() {
             password: event.target.querySelector("[name=password]").value,
         };
         const body = JSON.stringify(loginData);
-        const response = await fetch(`${apiURL}users/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body
-        });
-        if (response.status === 200) {
-            const result = await response.json();
-            window.localStorage.setItem("token", result.token);
-            window.location.href = "index.html";
-        } else {
-            if (!(document.querySelector(".error-message"))) {
-                const form = document.querySelector(".login");
-                const submitButton = document.querySelector("#connect");
-                const loginError = document.createElement("p");
-                loginError.classList.add("error-message");
-                loginError.textContent = loginErrorMessage;
-                form.insertBefore(loginError, submitButton);
+        try {
+            const response = await fetch(`${apiURL}users/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body
+            });
+            if (response.ok) {
+                const result = await response.json();
+                window.localStorage.setItem("token", result.token);
+                window.location.href = "index.html";
             } else {
-                document.querySelector(".error-message").textContent = "";
-                document.querySelector(".error-message").textContent = loginErrorMessage;
-            };
-        };
+                if (!(document.querySelector(".error-message"))) {
+                    const submitButton = document.querySelector("#connect");
+                    const loginError = document.createElement("p");
+                    loginError.classList.add("error-message");
+                    loginError.textContent = loginErrorMessage;
+                    loginForm.insertBefore(loginError, submitButton);
+                } else {
+                    const loginErrorMessageContainer = document.querySelector(".error-message");
+                    loginErrorMessageContainer.textContent = "";
+                    loginErrorMessageContainer.textContent = loginErrorMessage;
+                };
+            }
+        } catch {
+            alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
+        }
     });
 };
 
