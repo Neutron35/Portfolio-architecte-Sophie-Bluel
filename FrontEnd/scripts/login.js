@@ -3,7 +3,7 @@ import { mainNavStyle } from "./mainNav.js";
 
 const loginErrorMessage = "Erreur dans l'identifiant ou le mot de passe";
 
-function sendLoginForm() {
+function initLoginForm() {
     const loginForm = document.querySelector(".login");
 
     //Pour test
@@ -44,4 +44,4 @@ function sendLoginForm() {
 };
 
 mainNavStyle();
-sendLoginForm();
+initLoginForm();
