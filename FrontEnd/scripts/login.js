@@ -6,12 +6,12 @@ const loginErrorMessage = "Erreur dans l'identifiant ou le mot de passe";
 function initLoginForm() {
     const loginForm = document.querySelector(".login");
 
-    loginForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+    loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
         const loginData = {
-            email: event.target.querySelector("[name=email]").value,
-            password: event.target.querySelector("[name=password]").value,
+            email: e.target.querySelector("[name=email]").value,
+            password: e.target.querySelector("[name=password]").value,
         };
         const body = JSON.stringify(loginData);
         try {

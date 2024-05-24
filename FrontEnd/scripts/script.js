@@ -1,8 +1,16 @@
 import { apiURL } from "./env.js";
 import { mainNavStyle } from "./mainNav.js";
 
-const response = await fetch(`${apiURL}works`);
-const works = await response.json();
+let response;
+let works = [];
+
+try {
+    response = await fetch(`${apiURL}works`);
+    works = await response.json();
+} catch (e) {
+    console.log(e);
+    alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
+}
 
 const categoriesData = [];
 const categories = new Set();
@@ -233,7 +241,8 @@ async function deleteWork(id) {
         } else {
             alert("Une erreur est survenue");
         }
-    } catch {
+    } catch (e) {
+        console.log(e);
         alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
     }
 }
@@ -247,8 +256,8 @@ const openModalUploadView = function (e) {
     addWorkForm.addEventListener("submit", sendNewWork);
 }
 
-async function sendNewWork (event) {
-    event.preventDefault();
+async function sendNewWork (e) {
+    e.preventDefault();
 
     const formData = new FormData();
     formData.append("image", uploadPictureButton.files[0]);
@@ -273,7 +282,8 @@ async function sendNewWork (event) {
         } else {
             alert("Une erreur est survenue");
         }
-    } catch {
+    } catch (e) {
+        console.log(e);
         alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
     }
 }
@@ -341,14 +351,14 @@ function loggedInCheck() {
 // Changement couleur quand clic sur catégorie
 const categoriesButtons = document.querySelectorAll(".category-button");
 categoriesButtons.forEach(button => {
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", (e) => {
         categoriesButtons.forEach(function(btn) {
             btn.classList.remove("active");
         });
-        event.target.classList.add("active");
-        if (!(event.target.textContent === "Tous")) {
+        e.target.classList.add("active");
+        if (!(e.target.textContent === "Tous")) {
             const sortedWorks = works.filter(function (work) {
-                return work.category.name === event.target.textContent;
+                return work.category.name === e.target.textContent;
             });
             divGallery.innerHTML = "";
             generateWorksGallery(sortedWorks);
@@ -376,7 +386,6 @@ window.addEventListener("keydown", function (e) {
         closeModal(e);
     };
 });
-
 
 modalPreviousButton.addEventListener("click", (e) => {
     e.preventDefault();
