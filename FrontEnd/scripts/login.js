@@ -1,10 +1,9 @@
 import { apiURL } from "./env.js";
 import { mainNavStyle } from "./mainNav.js";
 
-const loginErrorMessage = "Erreur dans l'identifiant ou le mot de passe";
-
 function initLoginForm() {
     const loginForm = document.querySelector(".login");
+    const loginErrorMessage = "Erreur dans l'identifiant ou le mot de passe";
 
     loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -37,7 +36,8 @@ function initLoginForm() {
                     loginErrorMessageContainer.textContent = loginErrorMessage;
                 };
             }
-        } catch {
+        } catch (e) {
+            console.log(e);
             alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
         }
     });

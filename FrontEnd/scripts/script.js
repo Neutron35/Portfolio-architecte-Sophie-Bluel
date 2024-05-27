@@ -17,15 +17,12 @@ const categories = new Set();
 let uniqueCategories;
 
 const body = document.querySelector("body");
-const header = document.querySelector("header");
 const navLogin = document.getElementById("login");
-const projectsTitle = document.querySelector("#portfolio h2");
 const divGallery = document.querySelector(".gallery");
 const portfolio = document.getElementById("portfolio");
 
 const modalGalleryView = document.getElementById("modal-gallery-view");
 const modalGallery = document.querySelector(".modal-gallery");
-const addPictureButton = document.querySelector(".add-picture");
 
 const modalUploadView = document.getElementById("modal-upload-view");
 const modalPreviousButton = document.querySelector(".fa-arrow-left");
@@ -111,9 +108,11 @@ function createCategoryButton(label, isActive) {
 
 // Création de la bannière "Mode édition" en haut
 function createTopBanner() {
+    const mainContainer = document.querySelector(".main-container");
+    const header = document.querySelector("header");
     const editModeBanner = document.createElement("div");
     editModeBanner.setAttribute("id", "edit-mode-banner");
-    body.insertBefore(editModeBanner, header);
+    body.insertBefore(editModeBanner, mainContainer);
 
     header.style.marginTop = "100px";
 
@@ -135,6 +134,7 @@ function logout() {
 
 // On insère le logo & "modifier" à côté de "Mes projets"
 function createEditMode() {
+    const projectsTitle = document.querySelector("#portfolio h2");
     const titleAndEdit = document.createElement("div");
     titleAndEdit.setAttribute("id", "title-and-edit");
     portfolio.insertBefore(titleAndEdit, categoriesMenu);
@@ -192,6 +192,7 @@ const openModal = function (e) {
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 
     openModalGalleryView();
+    body.style.overflow = "hidden";
 }
 
 // Fermeture modale
@@ -203,6 +204,7 @@ const closeModal = function (e) {
     modalGalleryView.style.display = "none";
     modalUploadView.style.display = "none";
     modal = null;
+    body.style.overflow = "auto";
 }
 
 const stopPropagation = function (e) {
@@ -211,6 +213,7 @@ const stopPropagation = function (e) {
 
 // Affichage de la galerie photo modale
 function openModalGalleryView() {
+    const addPictureButton = document.querySelector(".add-picture");
     resetModalUploadView();
     modalUploadView.style.display = "none";
     modalGalleryView.style.display = "flex";
