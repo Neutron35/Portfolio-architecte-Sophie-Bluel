@@ -129,48 +129,45 @@ table {
 }
 button {
 	-webkit-appearance: none;
-	border-radius: 0;
-	text-align: inherit;
-	background: none;
 	box-shadow: none;
 	padding: 0;
+	background: none;
 	cursor: pointer;
 	border: none;
-	color: inherit;
+	border-radius: 0;
 	font: inherit;
+	color: inherit;
+	text-align: inherit;
 }
 select {
 	appearance: none;
-
-	background-color: transparent;
-	border: none;
-	padding: 0 1em 0 0;
-	margin: 0;
-	width: 100%;
-	font-family: inherit;
-	cursor: inherit;
-	line-height: inherit;
-
 	outline: none;
+	width: 100%;
+	margin: 0;
+	padding: 0 1em 0 0;
+	background-color: transparent;
+	cursor: inherit;
+	border: none;
+	font-family: inherit;
+	line-height: inherit;
 }
 /** end reset css**/
 body {
-	font-family: "Work Sans";
-	font-size: 14px;
-	background-color: #fffef8;
-	max-width: none;
 	margin: 0;
+	background-color: #fffef8;
+	font-size: 14px;
+	font-family: "Work Sans";
 }
 #edit-mode-banner {
-	width: 100%;
-	height: 50px;
-	margin: 0;
-	position: fixed;
-	background-color: black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
+	position: fixed;
+	width: 100%;
+	height: 50px;
+	margin: 0;
+	background-color: black;
 }
 #edit-mode-banner .fa-pen-to-square {
 	color: white;
@@ -179,14 +176,14 @@ body {
 	color: white;
 }
 .main-container {
+	display: flex;
+	flex-direction: column;
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 1200px;
-	padding: 0 30px 0 30px;
-	margin: 0 auto 0 auto;
-	display: flex;
-	flex-direction: column;
 	min-height: 100vh;
+	margin: 0 auto 0 auto;
+	padding: 0 30px 0 30px;
 }
 header {
 	display: flex;
@@ -196,14 +193,14 @@ header {
 h1 {
 	display: flex;
 	flex-direction: column;
-	font-family: "Syne";
 	font-size: 22px;
+	font-family: "Syne";
 	font-weight: 800;
 	color: #b1663c;
 }
 h1 > span {
-	font-family: "Work Sans";
 	font-size: 10px;
+	font-family: "Work Sans";
 	letter-spacing: 0.1em;
 }
 nav ul {
@@ -238,9 +235,9 @@ section {
 	margin: 50px 0;
 }
 h2 {
+	font-size: 30px;
 	font-family: "Syne";
 	font-weight: 700;
-	font-size: 30px;
 	color: #1d6154;
 }
 #introduction {
@@ -252,8 +249,8 @@ h2 {
 }
 #introduction img {
 	display: block;
-	margin: auto;
 	width: 80%;
+	margin: auto;
 }
 #introduction article {
 	flex: 1;
@@ -265,8 +262,8 @@ h2 {
 	margin-bottom: 0.5em;
 }
 #portfolio h2 {
-	text-align: center;
 	margin-bottom: 1em;
+	text-align: center;
 }
 #title-and-edit {
 	display: flex;
@@ -277,51 +274,52 @@ h2 {
 	margin-left: calc(50% - 95px);
 }
 #edit-mode {
+	margin-left: 30px;
 	color: inherit;
 	text-decoration: none;
-	margin-left: 30px;
 }
 #edit-mode i {
 	padding-right: 10px;
 }
 #categories-menu {
-	font-size: 30px;
-	margin-bottom: 1em;
 	display: flex;
-	gap: 10px;
 	justify-content: center;
+	gap: 10px;
+	margin-bottom: 1em;
+	font-size: 30px;
 }
 .category-button {
-	font-family: "Syne";
-	font-size: 16px;
-	color: #1d6154;
+	padding: 9px 29px;
 	border: 1px solid #1d6154;
 	border-radius: 60px;
-	padding: 9px 29px;
+	font-size: 16px;
+	font-family: "Syne";
+	color: #1d6154;
 }
 .category-button.active {
-	color: #ffffff;
 	background-color: #1d6154;
+	color: #ffffff;
 }
 .gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	grid-column-gap: 20px;
+	width: 90%;
+	margin: 0 auto;
 }
 .gallery img {
 	object-fit: cover;
 	width: 100%;
-	aspect-ratio: 13 / 16;
+	height: 430px;
 }
 .gallery figcaption {
 	padding-top: 5px;
 }
 .modal {
-	position: fixed;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -332,30 +330,30 @@ h2 {
 	width: 50%;
 	max-width: 570px;
 	margin: auto auto;
+	padding: 30px;
 	background-color: #ffffff;
 	border-radius: 10px;
-	padding: 30px;
 }
 #modal-gallery-view,
 #modal-upload-view {
-	width: 100%;
-	height: 100%;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
+	height: 100%;
 }
 .modal-navigation {
-	width: 100%;
 	display: flex;
+	width: 100%;
 }
 .modal-close {
 	width: fit-content;
-	font-size: 24px;
 	margin-left: auto;
+	font-size: 24px;
 }
 .modal-title {
-	text-align: center;
-	font-size: 25px;
 	margin-top: 10px;
+	font-size: 25px;
+	text-align: center;
 }
 .modal-gallery-container {
 	width: 75%;
@@ -370,8 +368,8 @@ h2 {
 	align-items: start;
 	row-gap: 30px;
 	column-gap: 10px;
-	aspect-ratio: 15 / 13;
 	overflow: hidden auto;
+	height: 370px;
 }
 .modal-gallery::-webkit-scrollbar {
 	width: 5px;
@@ -386,22 +384,22 @@ h2 {
 	background: #555;
 }
 .modal-gallery figure {
-	width: 18%;
 	position: relative;
+	width: 18%;
 }
 .modal-gallery img {
 	object-fit: cover;
 	display: block;
 	width: 100%;
-	aspect-ratio: 40 / 53;
+	height: 102px;
 }
 .delete-work {
 	position: absolute;
 	top: 6px;
 	right: 5px;
-	text-align: center;
 	background-color: #000000;
 	border-radius: 2px;
+	text-align: center;
 }
 .fa-trash-can {
 	margin: 3px 4px;
@@ -410,13 +408,13 @@ h2 {
 }
 .add-picture {
 	width: 41%;
-	font-size: 14px;
-	text-align: center;
-	color: #ffffff;
-	background-color: #1d6154;
-	border-radius: 60px;
 	margin: 0 auto 10px auto;
 	padding: 11px 0px;
+	background-color: #1d6154;
+	border-radius: 60px;
+	font-size: 14px;
+	color: #ffffff;
+	text-align: center;
 }
 .add-work-form {
 	width: 73%;
@@ -433,18 +431,18 @@ h2 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	aspect-ratio: 42 / 17;
+	height: 170px;
 	background-color: #e8f1f6;
 	border-radius: 3px;
 }
 .fa-image {
+	margin-top: 15px;
 	font-size: 70px;
 	color: #b9c5cc;
-	margin-top: 15px;
 }
 #file-preview {
-	height: 100%;
 	object-fit: contain;
+	height: 100%;
 }
 #upload-picture {
 	display: none;
@@ -452,33 +450,33 @@ h2 {
 #upload-label {
 	margin-top: 10px;
 	padding: 10px 30px;
-	color: #306685;
 	background-color: #cbd6dc;
 	border-radius: 50px;
+	color: #306685;
 }
 #upload-message {
 	flex-grow: 1;
+	margin: 10px 0 0 0;
 	font-size: 10px;
-	margin: 10px 0 20px 0;
-	text-align: center;
 	color: #444444;
+	text-align: center;
 }
 #work-title-label {
 	margin-top: 30px;
 	margin-bottom: 10px;
 }
 #work-title {
-	height: 50px;
-	border: 0px;
-	padding: 0 15px 0 15px;
 	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
+	height: 50px;
+	padding: 0 15px 0 15px;
+	border: 0px;
 }
 #work-category {
+	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
 	height: 50px;
-	border: 0px;
 	padding: 0 15px 0 15px;
 	background-color: #ffffff;
-	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
+	border: 0px;
 }
 #work-category-label {
 	margin-top: 20px;
@@ -488,28 +486,28 @@ h2 {
 	position: relative;
 }
 .select:after {
-	font-family: fontAwesome;
-	content: "\f078";
-	color: #6c6c6c;
-	position: absolute;
-	right: 30px;
-	top: 20px;
-	z-index: 1;
-	text-align: center;
 	pointer-events: none;
+	content: "\f078";
+	position: absolute;
+	z-index: 1;
+	top: 20px;
+	right: 30px;
 	box-sizing: border-box;
 	font-size: 10px;
+	font-family: fontAwesome;
+	color: #6c6c6c;
+	text-align: center;
 }
 .confirm-upload {
 	display: block;
 	width: 41%;
 	height: 36px;
-	font-size: 14px;
-	text-align: center;
-	color: #ffffff;
+	margin: 0 auto 20px auto;
 	background-color: #a7a7a7;
 	border-radius: 60px;
-	margin: 0 auto 20px auto;
+	font-size: 14px;
+	color: #ffffff;
+	text-align: center;
 }
 .confirm-upload:enabled {
 	background-color: #1d6154;
@@ -525,35 +523,35 @@ h2 {
 	margin-bottom: 20px;
 }
 #contact form {
-	text-align: left;
-	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
+	margin-top: 30px;
+	text-align: left;
 }
 #contact label {
 	margin: 2em 0 1em 0;
 }
 #contact input[type="text"],
 #contact input[type="email"] {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	height: 50px;
+	border: none;
+	font-size: 1.2em;
 }
 #contact textarea {
-	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
 }
 input[type="submit"] {
+	margin: 2em auto;
+	padding: 10px 60px 10px 60px;
+	background-color: #1d6154;
+	border-width: 0;
+	border-radius: 60px;
 	font-family: "Syne";
 	font-weight: 700;
 	color: white;
-	background-color: #1d6154;
-	margin: 2em auto;
 	text-align: center;
-	border-radius: 60px;
-	border-width: 0;
-	padding: 10px 60px 10px 60px;
 }
 footer {
 	margin-top: auto;
@@ -568,165 +566,62 @@ footer nav ul {
 
 /*** login.html ***/
 .login {
-	width: 380px;
 	display: flex;
 	flex-direction: column;
+	width: 50%;
+	max-width: 380px;
 	margin: 0 auto;
 }
 .login h2 {
-	text-align: center;
 	margin-top: 100px;
 	margin-bottom: 1em;
+	text-align: center;
 }
 .login label {
 	margin-bottom: 8px;
 }
 .login input[type="email"],
 #password {
-	height: 50px;
-	border: 0px;
-	background-color: white;
 	filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
+	height: 50px;
+	background-color: white;
+	border: 0px;
 }
 .login input[type="email"] {
 	margin-bottom: 20px;
 }
 .login p {
+	margin-top: 20px;
 	color: red;
 	text-align: center;
-	margin-top: 20px;
 }
 .login a {
 	text-align: center;
 }
 
 /*** Media queries ***/
-@media (max-width: 1200px) {
+@media (max-width: 1199.98px) {
 	.modal-gallery {
 		row-gap: 28px;
 		column-gap: 8px;
 	}
 }
-@media (max-width: 1024px) {
-	#edit-mode-banner {
-		font-size: 13px;
-	}
-	h1 {
-		font-size: 20px;
-	}
-	h1 > span {
-		font-size: 9px;
-	}
-	nav li {
-		font-size: 1.1em;
-	}
-	header nav img {
-		width: 18px;
-		height: 18px;
-	}
-	h2 {
-		font-size: 28px;
-	}
-	#introduction p {
-		font-size: 13px;
-	}
-	#edit-mode {
-		font-size: 13px;
-	}
-	.category-button {
-		font-size: 14px;
-	}
-	.gallery figcaption {
-		font-size: 13px;
-	}
-	.modal-close {
-		font-size: 22px;
-	}
-	.modal-title {
-		font-size: 23px;
+@media (max-width: 991.98px) {
+	.gallery img {
+		height: 350px;
 	}
 	.modal-gallery {
 		row-gap: 26px;
 		column-gap: 6px;
+		height: 323px;
 	}
-	.fa-trash-can {
-		font-size: 10px;
-	}
-	.add-picture {
-		font-size: 13px;
-		padding: 10px 0px;
-	}
-	#inputs-container {
-		margin-bottom: 25px;
-		padding-bottom: 45px;
-	}
-	.fa-image {
-		font-size: 68px;
-		margin-top: 13px;
-	}
-	#upload-label {
-		font-size: 12px;
-		margin-top: 9px;
-		padding: 9px 28px;
-	}
-	#upload-message {
-		font-size: 9px;
-		margin: 9px 0 18px 0;
-	}
-	#work-title-label {
-		margin-top: 28px;
-		margin-bottom: 9px;
-	}
-	#work-title,
-	#work-category {
-		height: 48px;
-		font-size: 12px;
-		padding: 0 13px 0 13px;
-	}
-	#work-category-label {
-		margin-top: 18px;
-		margin-bottom: 9px;
-	}
-	.select:after {
-		font-size: 9px;
-	}
-	.confirm-upload {
-		height: 34px;
-		font-size: 13px;
-	}
-	#contact h2 {
-		margin-bottom: 18px;
-	}
-	#contact p {
-		font-size: 13px;
-	}
-	#contact form {
-		margin-top: 28px;
-	}
-	label {
-		font-size: 13px;
-	}
-	#contact input[type="text"],
-	#contact input[type="email"] {
-		height: 48px;
-		font-size: 1.1em;
-	}
-	input[type="submit"] {
-		font-size: 12px;
-		padding: 8px 57px 8px 57px;
-	}
-	.login input[type="email"],
-	#password {
-		height: 48px;
-		font-size: 12px;
-	}
-	.login a {
-		font-size: 13px;
+	.modal-gallery img {
+		height: 87px;
 	}
 }
-
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
 	#edit-mode-banner {
+		gap: 18px;
 		font-size: 12px;
 	}
 	h1 {
@@ -752,44 +647,63 @@ footer nav ul {
 		font-size: 12px;
 	}
 	.category-button {
+		padding: 7px 25px;
 		font-size: 13px;
 	}
+	.gallery img {
+		height: 261px;
+	}
 	.gallery figcaption {
+		padding-top: 3px;
 		font-size: 12px;
 	}
 	.modal-close {
 		font-size: 20px;
 	}
 	.modal-title {
+		margin-top: 8px;
 		font-size: 21px;
+	}
+	.modal-gallery-container {
+		margin-top: 41px;
+		margin-bottom: 36px;
+		padding-bottom: 61px;
 	}
 	.modal-gallery {
 		row-gap: 24px;
-		column-gap: 5px;
+		column-gap: 4px;
+		height: 250px;
+	}
+	.modal-gallery img {
+		height: 67px;
 	}
 	.fa-trash-can {
 		font-size: 9px;
 	}
 	.add-picture {
-		font-size: 12px;
+		margin: 0 auto 8px auto;
 		padding: 9px 0px;
+		font-size: 12px;
 	}
 	#inputs-container {
-		margin-bottom: 20px;
-		padding-bottom: 40px;
+		margin-bottom: 23px;
+		padding-bottom: 43px;
+	}
+	.picture-upload-block {
+		height: 150px;
 	}
 	.fa-image {
-		font-size: 66px;
 		margin-top: 12px;
+		font-size: 66px;
 	}
 	#upload-label {
-		font-size: 11px;
 		margin-top: 8px;
 		padding: 8px 26px;
+		font-size: 11px;
 	}
 	#upload-message {
+		margin: 8px 0 0 0;
 		font-size: 8px;
-		margin: 8px 0 16px 0;
 	}
 	#work-title-label {
 		margin-top: 26px;
@@ -798,8 +712,8 @@ footer nav ul {
 	#work-title,
 	#work-category {
 		height: 46px;
-		font-size: 11px;
 		padding: 0 12px 0 12px;
+		font-size: 11px;
 	}
 	#work-category-label {
 		margin-top: 16px;
@@ -810,6 +724,7 @@ footer nav ul {
 	}
 	.confirm-upload {
 		height: 32px;
+		margin: 0 auto 16px auto;
 		font-size: 12px;
 	}
 	#contact h2 {
@@ -830,8 +745,8 @@ footer nav ul {
 		font-size: 1em;
 	}
 	input[type="submit"] {
-		font-size: 11px;
 		padding: 7px 55px 7px 55px;
+		font-size: 11px;
 	}
 	.login input[type="email"],
 	#password {
@@ -840,5 +755,18 @@ footer nav ul {
 	}
 	.login a {
 		font-size: 12px;
+	}
+}
+@media (max-width: 575.98px) {
+	.gallery img {
+		height: 186px;
+	}
+	.modal-gallery {
+		row-gap: 24px;
+		column-gap: 4px;
+		height: 200px;
+	}
+	.modal-gallery img {
+		height: 49px;
 	}
 }
