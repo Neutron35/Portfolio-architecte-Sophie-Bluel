@@ -56,7 +56,7 @@ function generateWorksGallery(works) {
         const duplicate = categories.has(item.id);
         categories.add(item.id);
         return !duplicate;
-    })
+    });
 }
 
 function createWorkInGallery(category, id, imageUrl, title) {
@@ -212,9 +212,9 @@ function openModalGalleryView() {
         button.addEventListener("click", function () {
             const closestFigure = button.closest("figure");
             const workId = closestFigure.getAttribute("data-id");
-            deleteWork(workId)
-        })
-    })
+            deleteWork(workId);
+        });
+    });
 }
 
 async function deleteWork(id) {
@@ -229,7 +229,7 @@ async function deleteWork(id) {
             const matchingElements = document.querySelectorAll(`figure[data-id="${id}"]`);
             matchingElements.forEach(element => {
                 element.remove();
-            })
+            });
         } else {
             alert("Une erreur est survenue");
         }
@@ -356,8 +356,8 @@ categoriesButtons.forEach(button => {
             divGallery.innerHTML = "";
             generateWorksGallery(works);
         }
-    })
-})
+    });
+});
 
 // Apparition modale selon le clic
 const modalLinks = document.querySelectorAll(".js-modal");
@@ -368,7 +368,7 @@ modalLinks.forEach(a => {
 const closeModalButtons = document.querySelectorAll(".modal-close");
 closeModalButtons.forEach(button => {
     button.addEventListener("click", closeModal);
-})
+});
 
 // Fermer modale si on appuie sur Echap
 window.addEventListener("keydown", function (e) {
