@@ -57,43 +57,36 @@ function generateWorksGallery(works) {
         categories.add(item.id);
         return !duplicate;
     })
-};
+}
 
 function createWorkInGallery(category, id, imageUrl, title) {
     categoriesData.push(category);
-
     const workElement = document.createElement("figure");
-    workElement.setAttribute("data-id", id)
+    workElement.setAttribute("data-id", id);
     const imageElement = document.createElement("img");
     imageElement.src = imageUrl;
     imageElement.alt = title;
     const nameElement = document.createElement("figcaption");
     nameElement.textContent = title;
-
     divGallery.appendChild(workElement);
     workElement.appendChild(imageElement);
     workElement.appendChild(nameElement);
-
 }
 
 // Génération du menu des catégories/filtres
 function generateCategoriesMenu() {
-    
     categoriesMenu.setAttribute("id", "categories-menu");
     portfolio.insertBefore(categoriesMenu, divGallery);
-
     createCategoryButton("Tous", 1);
-    
     uniqueCategories.forEach((category) => {
         createCategoryButton(category.name, 0);
-
         //On ajoute également les catégories dans le formulaire d'ajout de photo
         const categoryOption = document.createElement("option");
         categoryOption.value = category.id;
         categoryOption.innerText = category.name;
         uploadWorkCategory.appendChild(categoryOption);
     });
-};
+}
 
 function createCategoryButton(label, isActive) {
     const button = document.createElement("button");
@@ -113,24 +106,21 @@ function createTopBanner() {
     const editModeBanner = document.createElement("div");
     editModeBanner.setAttribute("id", "edit-mode-banner");
     body.insertBefore(editModeBanner, mainContainer);
-
     header.style.marginTop = "100px";
-
     const editModeIcon = document.createElement("i");
     editModeIcon.classList.add("fa-regular", "fa-pen-to-square");
     editModeBanner.appendChild(editModeIcon);
-
     const editModeWarning = document.createElement("p");
     editModeWarning.innerText = "Mode édition";
     editModeBanner.appendChild(editModeWarning);
-};
+}
 
 // On enlève le token quand on clique sur "logout"
 function logout() {
     navLogin.addEventListener("click", function () {
         window.localStorage.removeItem("token");
     });
-};
+}
 
 // On insère le logo & "modifier" à côté de "Mes projets"
 function createEditMode() {
@@ -155,7 +145,7 @@ function createEditMode() {
     const editModeMessage = document.createElement("span");
     editModeMessage.innerText = "modifier";
     editMode.appendChild(editModeMessage);
-};
+}
 
 // On ajoute les photos dans la modale
 function populateModalGallery(works) {
@@ -165,7 +155,7 @@ function populateModalGallery(works) {
     works.forEach((work) => {
         createWorkInModalGallery(work.id, work.imageUrl, work.title);
     });
-};
+}
 
 function createWorkInModalGallery(id, imageUrl, title) {
     const workElement = document.createElement("figure");
@@ -190,7 +180,6 @@ const openModal = function (e) {
     modal.style.display = "flex";
     modal.addEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
-
     openModalGalleryView();
     body.style.overflow = "hidden";
 }
@@ -261,7 +250,6 @@ const openModalUploadView = function (e) {
 
 async function sendNewWork (e) {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append("image", uploadPictureButton.files[0]);
     formData.append("title", uploadWorkTitle.value);
@@ -338,7 +326,6 @@ function checkFile() {
 
 // On vérifie si l'utilisateur est connecté
 function loggedInCheck() {
-    //const isAuth = window.localStorage.getItem("token");
     if (isAuth === null) {
         return
     } else {
@@ -348,8 +335,8 @@ function loggedInCheck() {
         createEditMode();
         document.querySelector("#categories-menu").style.display = "none";
         logout();
-    };
-};
+    }
+}
 
 // Changement couleur quand clic sur catégorie
 const categoriesButtons = document.querySelectorAll(".category-button");
@@ -368,7 +355,7 @@ categoriesButtons.forEach(button => {
         } else {
             divGallery.innerHTML = "";
             generateWorksGallery(works);
-        };
+        }
     })
 })
 
@@ -387,7 +374,7 @@ closeModalButtons.forEach(button => {
 window.addEventListener("keydown", function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e);
-    };
+    }
 });
 
 modalPreviousButton.addEventListener("click", (e) => {

@@ -34,14 +34,14 @@ function initLoginForm() {
                     const loginErrorMessageContainer = document.querySelector(".error-message");
                     loginErrorMessageContainer.textContent = "";
                     loginErrorMessageContainer.textContent = loginErrorMessage;
-                };
+                }
             }
         } catch (e) {
             console.log(e);
             alert("Le serveur rencontre actuellement un problème, réessayez plus tard");
         }
     });
-};
+}
 
 mainNavStyle();
 initLoginForm();
