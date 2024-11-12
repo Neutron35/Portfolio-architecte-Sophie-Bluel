@@ -1,8 +1,15 @@
-# Portfolio-architecte-sophie-bluel
+## Sophie Bluel
+Conception du site portfolio d'une architecte d'intérieur
 
-Code du projet 6 d'intégrateur web.
+## Description
+L'agence ArchiWebos m'a envoyé en renfort comme développeur front-end d'une équipe qui travaille sur la conception du site portfolio d'une architecte d'intérieur. Une maquette Figma Desktop a été fournie. Un back-end déjà développé m'a permis de faire persister les données et de tester les fonctionnalités. Un Kanban a été utilisé afin de prendre connaissance de l'attribution des tâches. En partant d'un code front-end d'origine avec la version statique de la page de l'architecte, mes 3 missions principales étaient de développer la page de présentation des travaux de l'architecte, la page de connexion de l'administrateur du site, ainsi que la modale permettant d'uploader de nouveaux médias.
 
-## Information pour le lancer le code
+## Details
+* Role : Développeur front-end
+* Technos : JavaScript
+* Date : 04.2024 - 05.2024
 
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+## Compétences développées
+* Récupérer les données utilisateurs dans le JavaScript via des formulaires
+* Manipuler les éléments du DOM avec JavaScript
+* Gérer les événements utilisateurs avec JavaScript
